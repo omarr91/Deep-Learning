@@ -48,13 +48,15 @@ def main():
     p.add_argument("--checkpoint", default="checkpoints/encoder_best.pt")
     p.add_argument("--threshold",  type=float, default=0.5,
                    help="Cosine similarity threshold (0–1). Higher = stricter.")
+    p.add_argument("--image_size", type=int,   default=96,
+                   help="Must match the image_size used during training.")
     args = p.parse_args()
 
     device  = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     encoder = load_encoder(args.checkpoint, device)
 
-    emb1 = embed_image(encoder, args.img1, device)
-    emb2 = embed_image(encoder, args.img2, device)
+    emb1 = embed_image(encoder, args.img1, device, image_size=args.image_size)
+    emb2 = embed_image(encoder, args.img2, device, image_size=args.image_size)
 
     similarity = compute_similarities(emb1, emb2, metric="cosine")[0]
     match      = similarity >= args.threshold

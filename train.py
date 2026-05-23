@@ -68,8 +68,8 @@ def train_contrastive(args, device):
     val_size  = int(0.1 * len(full_ds))
     train_ds, val_ds = random_split(full_ds, [len(full_ds) - val_size, val_size])
 
-    train_loader = DataLoader(train_ds, batch_size=args.batch_size, shuffle=True,  num_workers=4, pin_memory=True)
-    val_loader   = DataLoader(val_ds,   batch_size=args.batch_size, shuffle=False, num_workers=4, pin_memory=True)
+    train_loader = DataLoader(train_ds, batch_size=args.batch_size, shuffle=True,  num_workers=0, pin_memory=False)
+    val_loader   = DataLoader(val_ds,   batch_size=args.batch_size, shuffle=False, num_workers=0, pin_memory=False)
 
     model     = build_siamese(args.embed_dim, args.image_size).to(device)
     criterion = ContrastiveLoss(margin=args.margin)
