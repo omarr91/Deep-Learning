@@ -46,7 +46,7 @@ def main():
     p.add_argument("--img1",       required=True)
     p.add_argument("--img2",       required=True)
     p.add_argument("--checkpoint", default="checkpoints/encoder_best.pt")
-    p.add_argument("--threshold",  type=float, default=0.5,
+    p.add_argument("--threshold",  type=float, default=0.7,
                    help="Cosine similarity threshold (0–1). Higher = stricter.")
     p.add_argument("--image_size", type=int,   default=96,
                    help="Must match the image_size used during training.")
